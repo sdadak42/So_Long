@@ -1,0 +1,56 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sdadak <sdadak@student.42istanbul.com.tr>  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/27 21:26:27 by sdadak            #+#    #+#             */
+/*   Updated: 2025/10/27 21:28:32 by sdadak           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef SO_LONG_H
+# define SO_LONG_H
+
+# include "minilibx-linux/mlx.h"
+# include "Libft/Libft/libft.h"
+# include "Libft/Printf/ft_printf.h"
+# include <unistd.h>
+# include <stdlib.h>
+# include <fcntl.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 6
+# endif
+
+
+typedef struct s_game
+{
+    void    *mlx_ptr;
+    void    *win_ptr;
+    char    **map;
+    int     count_lines;
+    int     count_columns;
+    int     count_coin;
+    int     count_e;
+    int     count_p;
+}   t_game;
+
+// -------------- map_read.c -----------------
+char	*get_next_line(int fd);
+void    ft_read_map(char *ber, t_game *game);
+void    ft_ber_control(char *fname);
+void    ft_free_map(char **str);
+
+// ------------- map_chech.c -----------------
+void    ft_map_check(t_game *game);
+
+
+
+void    ft_error_and_exit(char *message);
+
+
+
+
+#endif
