@@ -12,8 +12,6 @@
 
 #include "so_long.h"
 
-
-
 void    so_long(char *ber)
 {
     t_game  game;

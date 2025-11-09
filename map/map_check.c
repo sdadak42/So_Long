@@ -67,12 +67,16 @@ static void    ft_wall_check(t_game *game, int cline, int ccolumn)
     }
 }
 
-static void    ft_value_count(t_game *game, char value)
+static void    ft_value_count(t_game *game, char value, int y, int x)
 {
     if (value == 'C')
         game->count_coin++;
     else if (value == 'P')
+    {
+        game->player_x = x;
+        game->player_y = y;
         game->count_p++;
+    }
     else if (value == 'E')
         game->count_e++;
     if (game->count_p > 1)
@@ -108,7 +112,7 @@ static void    ft_char_check(t_game *game)
                 ft_error_and_exit("Unknown value on the map!");
             }
             if (map[j][i] != '0' && map[j][i] != '1')
-                ft_value_count(game, map[j][i]);
+                ft_value_count(game, map[j][i], j, i);
             i++;
         }
         j++;
@@ -123,19 +127,13 @@ void    ft_map_check(t_game *game)
     ft_is_rect(game);
     ft_wall_check(game, game->count_lines, game->count_columns);
     ft_char_check(game);
+    if (game->count_coin == 0 || game->count_p == 0 || game->count_e == 0)
+        ft_free_map(game->map);
     if (game->count_coin == 0)
-    {
-        ft_free_map(game->map);
         ft_error_and_exit("There must be at least one coin!");
-    }
     if (game->count_p == 0)
-    {
-        ft_free_map(game->map);
         ft_error_and_exit("There must be a player!");
-    }
     if (game->count_e == 0)
-    {
-        ft_free_map(game->map);
         ft_error_and_exit("There must be an exit!");
-    }
+    ft_is_accessible(game);
 }

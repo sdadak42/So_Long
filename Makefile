@@ -12,6 +12,7 @@ SRCS = so_long.c \
 		get_next_line.c \
 		map/map_read.c \
 		map/map_check.c \
+		map/is_accessible.c \
 
 OBJS = $(SRCS:.c=.o)
 

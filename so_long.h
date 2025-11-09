@@ -13,7 +13,7 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include "minilibx-linux/mlx.h"
+//# include "minilibx-linux/mlx.h"
 # include "Libft/Libft/libft.h"
 # include "Libft/Printf/ft_printf.h"
 # include <unistd.h>
@@ -35,6 +35,8 @@ typedef struct s_game
     int     count_coin;
     int     count_e;
     int     count_p;
+    int     player_x;
+    int     player_y;
 }   t_game;
 
 // -------------- map_read.c -----------------
@@ -45,6 +47,8 @@ void    ft_free_map(char **str);
 
 // ------------- map_chech.c -----------------
 void    ft_map_check(t_game *game);
+void    ft_is_accessible(t_game *game);
+
 
 
 
