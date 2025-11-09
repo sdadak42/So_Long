@@ -13,7 +13,7 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-//# include "minilibx-linux/mlx.h"
+# include "minilibx-linux/mlx.h"
 # include "Libft/Libft/libft.h"
 # include "Libft/Printf/ft_printf.h"
 # include <unistd.h>
@@ -32,11 +32,20 @@ typedef struct s_game
     char    **map;
     int     count_lines;
     int     count_columns;
+    
     int     count_coin;
     int     count_e;
     int     count_p;
+    
     int     player_x;
     int     player_y;
+
+    void    *img_player;
+    void    *img_coin;
+    void    *img_exit;
+    void    *img_floor;
+    void    *img_wall;
+
 }   t_game;
 
 // -------------- map_read.c -----------------
