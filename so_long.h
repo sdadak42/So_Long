@@ -24,6 +24,11 @@
 #  define BUFFER_SIZE 6
 # endif
 
+# define KEY_W 119
+# define KEY_A 97
+# define KEY_S 115
+# define KEY_D 100
+# define KEY_ESC 65307
 
 typedef struct s_game
 {
@@ -46,6 +51,8 @@ typedef struct s_game
     void    *img_floor;
     void    *img_wall;
 
+    int     count_move;
+
 }   t_game;
 
 // -------------- map_read.c -----------------
@@ -62,6 +69,7 @@ void    ft_is_accessible(t_game *game);
 
 
 void    ft_error_and_exit(char *message);
+void    ft_free_and_exit(t_game *game);
 
 
 

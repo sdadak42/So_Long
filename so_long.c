@@ -55,10 +55,75 @@ void    ft_put_to_window(t_game *game, int x, int y)
     }
 }
 
+int    ft_close_game(void *game)
+{
+    ft_free_and_exit(game);
+    exit(0);
+}
+
+void    ft_key_w(t_game *game)
+{
+    int x;
+    int y;
+
+    x = game->player_x;
+    y = game->player_y;
+    if (game->map[y - 1][x] == '1')
+        return ;
+    else if (game->map[y - 1][x] == 'C')
+    {
+        game->count_coin = game->count_coin - 1;
+        game->map[y - 1][x] = 'P';
+        game->map[y][x] = '0';
+        game->player_y = y - 1;
+        game->count_move++;
+    }
+    else if (game->map[y - 1][x] == 'E')
+    {
+        ft_printf("Coin adet: %d\n", game->count_coin);
+        if (game->count_coin == 0)
+        {
+            game->count_move++;
+            ft_printf("Congratulations, you completed the game in %d moves!", game->count_move);
+            ft_free_and_exit(game);
+        }
+        else
+            ft_printf("Collect all the coins!\n");
+    }
+    else if (game->map[y - 1][x] == '0')
+    {
+        game->map[y - 1][x] = 'P';
+        game->map[y][x] = '0';
+        game->player_y = y - 1;
+        game->count_move++;
+    }
+    ft_printf("Move count: %d\n", game->count_move);
+    ft_put_to_window(game, 0, 0);
+}
+
+int    ft_key_handle(int keycode, void *game_data)
+{
+    t_game  *game;
+
+    game = (t_game *)game_data;
+    if (keycode == KEY_ESC)
+        ft_free_and_exit(game);
+    else if (keycode == KEY_W)
+        ft_key_w(game);
+    /*else if (keycode == KEY_A)
+    
+    else if (keycode == KEY_S)
+
+    else if (keycode == KEY_D)
+     */
+    return (0);
+}
+
 void    so_long(char *ber)
 {
     t_game  game;
 
+    game.count_move = 0;
     ft_read_map(ber, &game);
     ft_map_check(&game);
     game.mlx_ptr = mlx_init();
@@ -66,7 +131,11 @@ void    so_long(char *ber)
     ft_set_textures(&game);
     ft_put_to_window(&game, 0, 0);
 
-    ft_free_map(game.map);
+
+    mlx_hook(game.win_ptr, 17, 0, &ft_close_game, &game);
+    mlx_key_hook(game.win_ptr, &ft_key_handle, &game);
+    
+    mlx_loop(game.mlx_ptr);
 }
 int main(int ac, char **argv)
 {
