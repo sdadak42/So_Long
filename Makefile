@@ -10,9 +10,9 @@ RM = rm -f
 SRCS = so_long.c \
 		utils.c \
 		get_next_line.c \
-		map/map_read.c \
-		map/map_check.c \
-		map/is_accessible.c \
+		map_read.c \
+		map_check.c \
+		is_accessible.c \
 
 OBJS = $(SRCS:.c=.o)
 
