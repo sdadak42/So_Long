@@ -74,11 +74,21 @@ int	ft_key_handle(int keycode, void *game_data)
 void	so_long(char *ber)
 {
 	t_game	game;
+	int		size_x;
+	int		size_y;
 
 	game.count_move = 0;
 	ft_read_map(ber, &game);
 	ft_map_check(&game);
 	game.mlx_ptr = mlx_init();
+	mlx_get_screen_size(game.mlx_ptr, &size_x, &size_y);
+	if (size_x < game.count_columns * 64 || size_y < game.count_lines * 64)
+	{
+		mlx_destroy_display(game.mlx_ptr);
+		ft_free_map(game.map);
+		free(game.mlx_ptr);
+		ft_error_and_exit("The map is larger than the screen size!");
+	}
 	game.win_ptr = mlx_new_window(game.mlx_ptr, game.count_columns * 64,
 			game.count_lines * 64, "so_long");
 	ft_set_textures(&game);
